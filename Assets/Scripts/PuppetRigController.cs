@@ -6,32 +6,47 @@ namespace FloatingPuppet {
 
 public sealed class PuppetRigController : MonoBehaviour
 {
+    #region Public properties
+
     [field:SerializeField] public Transform Root { get; set; }
     [field:SerializeField] public uint Seed { get; set; }
 
-    Animator _animator;
+    #endregion
 
-    (Transform xform, float3 pos, quaternion rot)
-      _root, _handL, _handR, _footL, _footR;
+    #region Rig target struct
 
-    (Transform xform, float3 pos, quaternion rot) GetTarget(Transform xform)
-      => (xform, xform.localPosition, xform.localRotation);
+    readonly struct Target
+    {
+        public readonly Transform xform;
+        public readonly float3 pos;
+        public readonly quaternion rot;
 
-    (Transform xform, float3 pos, quaternion rot) FindTarget(string name)
-      => GetTarget(transform.Find(name));
+        public Target(Transform t)
+          => (xform, pos, rot) = (t, t.localPosition, t.localRotation);
+    }
 
-    void UpdateTarget
-      ((Transform xform, float3 pos, quaternion rot) target, uint seed)
+    Target FindTarget(string name) => new Target(transform.Find(name));
+
+    #endregion
+
+    #region Rig target operations
+
+    Target _root, _handL, _handR, _footL, _footR;
+
+    void UpdateTarget(in Target target, uint seed)
     {
         var t = Time.time;
         target.xform.localPosition = target.pos + Noise.Float3(t, seed++);
         target.xform.localRotation = math.mul(target.rot, Noise.Rotation(t, math.PI, seed++));
     }
 
+    #endregion
+
+    #region MonoBehaviour implementation
+
     void Start()
     {
-        _animator = Root.GetComponent<Animator>();
-        _root = GetTarget(transform);
+        _root = new Target(transform);
         _handL = FindTarget("Left Hand");
         _handR = FindTarget("Right Hand");
         _footL = FindTarget("Left Foot");
@@ -47,6 +62,8 @@ public sealed class PuppetRigController : MonoBehaviour
         UpdateTarget(_footL, seed++);
         UpdateTarget(_footR, seed++);
     }
+
+    #endregion
 }
 
 } // namespace FloatingPuppet
