@@ -4,13 +4,15 @@ using Klak.Math;
 
 namespace FloatingPuppet {
 
-public sealed class PuppetController : MonoBehaviour
+public sealed class PuppetRigController : MonoBehaviour
 {
     [field:SerializeField] public Transform Root { get; set; }
     [field:SerializeField] public uint Seed { get; set; }
 
+    Animator _animator;
+
     (Transform xform, float3 pos, quaternion rot)
-      _root, _handL, _handR, _legL, _legR;
+      _root, _handL, _handR, _footL, _footR;
 
     (Transform xform, float3 pos, quaternion rot) GetTarget(Transform xform)
       => (xform, xform.localPosition, xform.localRotation);
@@ -28,24 +30,22 @@ public sealed class PuppetController : MonoBehaviour
 
     void Start()
     {
+        _animator = Root.GetComponent<Animator>();
         _root = GetTarget(transform);
         _handL = FindTarget("Left Hand");
         _handR = FindTarget("Right Hand");
-        _legL = FindTarget("Left Leg");
-        _legR = FindTarget("Right Leg");
+        _footL = FindTarget("Left Foot");
+        _footR = FindTarget("Right Foot");
     }
 
-    void Update()
+    void LateUpdate()
     {
         var seed = Seed;
         UpdateTarget(_root, seed++);
         UpdateTarget(_handL, seed++);
         UpdateTarget(_handR, seed++);
-        UpdateTarget(_legL, seed++);
-        UpdateTarget(_legR, seed++);
-
-        Root.position = _root.xform.position;
-        Root.rotation = _root.xform.rotation;
+        UpdateTarget(_footL, seed++);
+        UpdateTarget(_footR, seed++);
     }
 }
 
