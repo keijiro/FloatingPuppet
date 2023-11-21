@@ -5,7 +5,9 @@ namespace FloatingPuppet {
 
 public sealed class PuppetSpineLinker : MonoBehaviour
 {
-    [field:SerializeField] public Transform Target { get; set; }
+    [field:SerializeField] public Transform Target1 { get; set; }
+    [field:SerializeField] public Transform Target2 { get; set; }
+    [field:SerializeField] public Transform Target3 { get; set; }
 
     Animator _animator;
 
@@ -14,10 +16,9 @@ public sealed class PuppetSpineLinker : MonoBehaviour
 
     void OnAnimatorIK()
     {
-        var rot = math.slerp(quaternion.identity, Target.localRotation, 1.0f / 3);
-        _animator.SetBoneLocalRotation(HumanBodyBones.Spine, rot);
-        _animator.SetBoneLocalRotation(HumanBodyBones.Chest, rot);
-        _animator.SetBoneLocalRotation(HumanBodyBones.UpperChest, rot);
+        _animator.SetBoneLocalRotation(HumanBodyBones.Spine, Target1.localRotation);
+        _animator.SetBoneLocalRotation(HumanBodyBones.Chest, Target2.localRotation);
+        _animator.SetBoneLocalRotation(HumanBodyBones.UpperChest, Target3.localRotation);
     }
 }
 
