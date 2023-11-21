@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Mathematics;
 using Klak.Math;
+using Random = Unity.Mathematics.Random;
 
 namespace FloatingPuppet {
 
@@ -33,11 +34,13 @@ public sealed class PuppetRigController : MonoBehaviour
 
     Target _root, _handL, _handR, _footL, _footR;
 
-    void UpdateTarget(in Target target, uint seed)
+    uint UpdateTarget(in Target target, float time, uint seed)
     {
-        var t = Time.time;
-        target.xform.localPosition = target.pos + Noise.Float3(t, seed++);
-        target.xform.localRotation = math.mul(target.rot, Noise.Rotation(t, math.PI, seed++));
+        var rand = Random.CreateFromIndex(seed++);
+        var freq = rand.NextFloat3(0.95f, 1.05f);
+        target.xform.localPosition = target.pos + Noise.Float3(freq * time, seed++);
+        target.xform.localRotation = math.mul(target.rot, Noise.Rotation(freq * time, math.PI, seed++));
+        return seed;
     }
 
     #endregion
@@ -55,12 +58,15 @@ public sealed class PuppetRigController : MonoBehaviour
 
     void LateUpdate()
     {
+        var time = Time.time + 100;
         var seed = Seed;
-        UpdateTarget(_root, seed++);
+        seed = UpdateTarget(_root, time, seed);
+        /*
         UpdateTarget(_handL, seed++);
         UpdateTarget(_handR, seed++);
         UpdateTarget(_footL, seed++);
         UpdateTarget(_footR, seed++);
+        */
     }
 
     #endregion
