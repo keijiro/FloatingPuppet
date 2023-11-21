@@ -5,13 +5,6 @@ using Random = Unity.Mathematics.Random;
 
 namespace FloatingPuppet {
 
-[System.Serializable]
-public struct Motion
-{
-    public float frequency;
-    public float3 displacement;
-    public float3 rotation;
-}
 
 public sealed class PuppetRigController : MonoBehaviour
 {
@@ -19,11 +12,17 @@ public sealed class PuppetRigController : MonoBehaviour
 
     [field:SerializeField] public Transform Root { get; set; }
     [field:SerializeField] public uint Seed { get; set; }
-    [field:SerializeField] public Motion RootMotion { get; set; }
-    [field:SerializeField] public Motion HandMotion { get; set; }
-    [field:SerializeField] public Motion FootMotion { get; set; }
-    [field:SerializeField] public float SpineFrequency { get; set; }
+
+    [field:SerializeField, Space] public float RootFrequency { get; set; }
+    [field:SerializeField] public float3 RootDisplacement { get; set; }
+    [field:SerializeField] public float3 RootRotation { get; set; }
+
+    [field:SerializeField, Space] public float SpineFrequency { get; set; }
     [field:SerializeField] public float3 SpineRotation { get; set; }
+
+    [field:SerializeField, Space] public float LimbFrequency { get; set; }
+    [field:SerializeField] public float3 HandDisplacement { get; set; }
+    [field:SerializeField] public float3 FootDisplacement { get; set; }
 
     #endregion
 
@@ -61,9 +60,6 @@ public sealed class PuppetRigController : MonoBehaviour
         return seed;
     }
 
-    uint UpdateTarget(in Target target, in Motion motion, float time, uint seed)
-      => UpdateTarget(target, motion.displacement, motion.rotation, motion.frequency, time, seed);
-
     #endregion
 
     #region MonoBehaviour implementation
@@ -82,12 +78,12 @@ public sealed class PuppetRigController : MonoBehaviour
     {
         var time = Time.time + 100;
         var seed = Seed;
-        seed = UpdateTarget(_root, RootMotion, time, seed);
+        seed = UpdateTarget(_root, RootDisplacement, RootRotation, RootFrequency, time, seed);
         seed = UpdateTarget(_spine, 0, SpineRotation, SpineFrequency, time, seed);
-        seed = UpdateTarget(_handL, HandMotion, time, seed);
-        seed = UpdateTarget(_handR, HandMotion, time, seed);
-        seed = UpdateTarget(_footL, FootMotion, time, seed);
-        seed = UpdateTarget(_footR, FootMotion, time, seed);
+        seed = UpdateTarget(_handL, HandDisplacement, 0, LimbFrequency, time, seed);
+        seed = UpdateTarget(_handR, HandDisplacement, 0, LimbFrequency, time, seed);
+        seed = UpdateTarget(_footL, FootDisplacement, 0, LimbFrequency, time, seed);
+        seed = UpdateTarget(_footR, FootDisplacement, 0, LimbFrequency, time, seed);
     }
 
     #endregion
