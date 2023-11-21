@@ -15,9 +15,7 @@ public sealed class PuppetRigLinker : MonoBehaviour
     void ApplyLink(AvatarIKGoal goal, Transform target)
     {
         _animator.SetIKPosition(goal, target.position);
-        _animator.SetIKRotation(goal, target.rotation);
         _animator.SetIKPositionWeight(goal, 1);
-        _animator.SetIKRotationWeight(goal, 1);
     }
 
     void Start()

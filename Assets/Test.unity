@@ -147,12 +147,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289022033}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.2, y: 0.2, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1905692870}
+  m_Father: {fileID: 874107956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &331087003
 GameObject:
@@ -344,6 +344,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1905692870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &874107955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 874107956}
+  m_Layer: 0
+  m_Name: Spine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &874107956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874107955}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1687786999}
+  - {fileID: 289022034}
+  m_Father: {fileID: 1905692870}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1687786998
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,12 +401,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687786998}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.2, y: 0.2, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1905692870}
+  m_Father: {fileID: 874107956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1905692868
 GameObject:
@@ -406,6 +439,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Root>k__BackingField: {fileID: 1136911726916139749}
   <Seed>k__BackingField: 137
+  <RootMotion>k__BackingField:
+    frequency: 0.1
+    displacement:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  <HandMotion>k__BackingField:
+    frequency: 0.2
+    displacement:
+      x: 0.3
+      y: 0.3
+      z: 0.3
+    rotation:
+      x: 45
+      y: 45
+      z: 45
+  <FootMotion>k__BackingField:
+    frequency: 0.2
+    displacement:
+      x: 0.3
+      y: 0.3
+      z: 0.3
+    rotation:
+      x: 45
+      y: 45
+      z: 45
+  <SpineFrequency>k__BackingField: 0.2
+  <SpineRotation>k__BackingField:
+    x: 90
+    y: 90
+    z: 90
 --- !u!4 &1905692870
 Transform:
   m_ObjectHideFlags: 0
@@ -419,8 +487,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1687786999}
-  - {fileID: 289022034}
+  - {fileID: 874107956}
   - {fileID: 331087004}
   - {fileID: 661349227}
   m_Father: {fileID: 0}
@@ -510,6 +577,7 @@ GameObject:
   - component: {fileID: 1136911726916139749}
   - component: {fileID: 1136911726908347653}
   - component: {fileID: 1136911726916139750}
+  - component: {fileID: 1136911726916139752}
   m_Layer: 0
   m_Name: Beta Optimized
   m_TagString: Untagged
@@ -582,6 +650,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1136911726916139749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1136911726916139752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136911726915643077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52c0e427cc0f114ead16e7ea916213f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Target>k__BackingField: {fileID: 874107956}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
