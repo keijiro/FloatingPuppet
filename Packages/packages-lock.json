@@ -114,6 +114,13 @@
       },
       "url": "https://registry.npmjs.com"
     },
+    "jp.keijiro.test-assets": {
+      "version": "1.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
+    },
     "jp.keijiro.vfxgraphassets": {
       "version": "1.2.0",
       "depth": 0,
