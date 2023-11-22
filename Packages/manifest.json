@@ -9,9 +9,8 @@
     }
   ],
   "dependencies": {
+    "com.unity.animation.rigging": "1.2.1",
     "com.unity.render-pipelines.universal": "14.0.9",
-    "jp.keijiro.beta": "1.0.2",
-    "jp.keijiro.klak.math": "2.1.0",
     "jp.keijiro.klak.motion": "1.1.0",
     "jp.keijiro.neolowman": "1.0.0",
     "jp.keijiro.test-assets": "1.0.1",
